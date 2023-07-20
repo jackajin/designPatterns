@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="1"></div>
+  <div id="2"></div>
+</body>
+<script>
+  /** 工厂模式 */
+
+  class Jquery {
+    selector = null
+    constructor(selector) {
+      this.selector = selector
+      const els = document.querySelectorAll(selector)
+
+      for(let i = 0; i < els.length; i++) {
+        this[i] = els[i]
+      }
+      this.length = els.length
+    }
+    css() {
+      /** ... ... */
+      return this
+    }
+  }
+
+  /** 工厂调用 */
+  const $ = (selector) => {
+    return new Jquery(selector)
+  }
+  /** 
+   *  前端常用的工厂模式有
+   *  1、Jquery 库
+   *  2、react 创建 vdom 的方法 react.crateElement()
+   *  3、vue 创建 vdom 的方法 
+   */
+  // $('div').css()
+
+</script>
+</html>
