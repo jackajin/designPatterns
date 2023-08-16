@@ -7,19 +7,90 @@
 </head>
 <body>
   <script>
-    class Store {
-      static instance = null
+    // class Store {
+    //   static instance = null
 
-      createStore() {
-        if(!this.instance) {
-          this.instance = new Store()
+    //   createStore() {
+    //     if(!this.instance) {
+    //       this.instance = new Store()
+    //     }
+    //     return this.instance
+    //   }
+
+    // }
+
+    // Store.createStore()
+    
+    // const obj = {
+    //   name: 'ajin',
+    //   age: 18,
+    //   sex: '男',
+    //   hobby: 'learn'
+    // }
+
+    // const str = JSON.stringify(obj)
+    // const o = JSON.parse(str, (k, v) => {
+    //   if(k === 'name') {
+    //     return undefined
+    //   }
+    //   return v
+    // })
+    // console.log(str, o)
+    const obj1 = {
+      name: 'ajin',
+      age: 18,
+      sex: '男',
+      idCard: '191010101',
+
+      toJSON() {
+        return {
+          name: 'ajin',
+          sex: '男',
         }
-        return this.instance
       }
-
+    }
+    const strObj1 = JSON.stringify(obj1)
+    console.log(strObj1);
+    const obj = {
+      a: [{
+        aName: 'aa',
+        aAge : 18,
+        aSex: 'male'
+      },
+      {
+        a1Name: 'aa',
+        a1Age : 18,
+        a1Sex: 'male'
+      }],
+      b: 'unknown',
+      c: [{
+        cName: 'aa',
+        cAge : 18,
+        cSex: 'male'
+      },
+      {
+        a1Name: 'aa',
+        a1Age : 18,
+        a1Sex: 'male'
+      }],
     }
 
-    
+    const proxyObj = new Proxy(obj, {
+      set(target, key, value) {
+        console.log(typeof target[key],'-->');
+        if(typeof target[key] === 'string') {
+          return Reflect.set(target,key, value)
+        }else {
+          return Reflect.set(target, key, JSON.parse(JSON.stringify(target[key])))
+        }
+      }
+    })
+
+    const cloneDeep = (origin) => {
+      return new Proxy(origin, {
+
+      })
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+  <script>
+    class eventPublish {
+      events = {}
+
+      on(e, fn) {
+        this.events[e] ? this.events[e].push(fn) : (this.events[e] = [fn])
+      }
+
+      emit(e, p) {
+        if(!this.events[e]) {
+          return new Error(`${e} event is not defined`)
+        }
+        this.events[e].forEach(fn => fn(p))
+      }
+
+      off(e, fn) {
+        if(fn) {
+          const index = this.events[e].indexOf(fn)
+          if(index === -1) {
+            return
+          }
+          this.events[e].split(index, 1)
+        }else {
+          this.events[e] = []
+        }
+      }
+    }
+
+    const publish = new eventPublish()
+    publish.on('event', () => {
+      
+    })
+    /** 
+     * publish.on('event', () => {})
+     * publish.emit('event')
+     * 
+     */
+  </script>
+</html>

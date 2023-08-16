@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <p>123</p>
+    <h1>我是标题</h1>
+    <div>
+      <p>1、窗前明月光</p>
+      <p>2、意思地上霜</p>
+      <p>3、举头望明月</p>
+      <p>4、低头思故乡</p>
+    </div>
+  </div>
+</body>
+<script>
+  const element = document.getElementById("root")
+
+  function* it (element) {
+    yield element
+    const children = element.children || []
+    for(n of children) {
+      yield *it(n)
+    }
+  }
+
+  for(d of it(element)) {
+    console.log(d);
+  }
+  // class MyIterator {
+  //   data = [1,2,3,4,5]
+  //   index = 0
+  //   next() {
+  //     if(this.index > this.data.length) {
+  //       return  { value: this.data[this.index], down: true }
+  //     }
+      
+  //     let obj = { value: this.data[this.index], down: false }
+  //     this.index ++
+  //     return obj
+  //   }
+
+  //   [Symbol.iterator]() {
+  //     return this
+  //   }
+  // }
+  // const it = MyIterator
+  // var arr = [1,3,2,6]
+  // var iterator = arr[Symbol.iterator]()
+  // for(var i of it) {
+  //   console.log(i);
+  // }
+
+  // function createIterator(array) {
+  //     var nextIndex = 0;
+  //     return {
+  //       // next: function() {
+  //       //   return nextIndex < array.length
+  //       //     ? { value: array[nextIndex++], done: false }
+  //       //     : { value: undefined, done: true };
+  //       // },
+  //       next() {
+         
+  //         if(nextIndex <= array.length) {
+  //           nextIndex++
+  //           return {value: array[nextIndex], done: false}
+  //         }
+  //         return {value: array[nextIndex], done: true}
+  //       },
+  //       [Symbol.iterator]: function () { 
+  //           console.log("返回的迭代器:",this)
+  //           return this // 注意这里是对象调用模式，this指向的就是上层的对象，迭代器
+  //       }
+  //     };
+  //   }
+    
+  //   var iterator = createIterator([1, 2, 3]);
+  
+  // function *test () {
+  //   yield *new Set([9,2])
+  // }
+
+  // function *myFn () {
+  //   yield *test()
+  //   yield *[1,2,3]
+
+  // }
+
+  // var gen = myFn()
+  // console.log(myFn());
+</script>
+</html>
